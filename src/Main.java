@@ -1,5 +1,5 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     private static Scanner scn = new Scanner(System.in);
@@ -20,8 +20,121 @@ public class Main {
 
         //3. Создайте 2 массива из 5 чисел. Выведите массивы на консоль.
         // Посчитать арифметическое элементов каждого массива и вывести большее значение или их равность.
-        thirdTask();
+        //thirdTask();
 
+        //4. Создайте массив из n случайных целы чисели выведите его на экран.
+        //Размер массива задается с консоли и размер может быть больше 5 и меньше равно 10.
+        //Если условие не удовлетворяет, вывести сообщение об этом.
+        //Если пользователь ввел не подходящее число, то нужно просить повторить вход.
+        //Создать массив из четных элементов первого массива, если они там есть, и вывести их.
+        //fourthTask();
+
+        //5. Создайте массив и заполните массив. Выведите массив на экран в строку. Замените каждый элемент с нечетным
+        //индексом на 0. Выведите массив на экран.
+        //fifthTask();
+
+        //6. Создайте массив строк. Заполните именами. Отсортировать массив.
+        //sixthTask();
+
+        //7. Реализуйте алгоритм сортировки пузырьком.
+        seventhTask();
+
+    }
+
+    private static void seventhTask() {
+        int[] arr = new int[10];
+
+        arr = generateRandomNums(arr);
+
+        System.out.println(printArray(arr));
+
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j + 1];
+                    arr[j + 1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+
+        System.out.println(printArray(arr));
+    }
+
+    private static void sixthTask() {
+        String[] arr = new String[]{"Josh", "John", "Bob", "Olga", "Anne"};
+
+
+        //1
+//        System.out.println(Arrays.stream(arr).sorted(new Comparator<String>() {
+//            @Override
+//            public int compare(String o1, String o2) {
+//                return o1.compareTo(o2);
+//            }
+//        }).collect(Collectors.toList()));
+
+        //2
+        Arrays.sort(arr, Comparator.naturalOrder());
+        System.out.println(Arrays.toString(arr));
+    }
+
+    private static void fifthTask() {
+        int[] arr = new int[10];
+
+        arr = generateRandomNums(arr);
+
+        System.out.println(printArray(arr));
+
+        for (int i = 0; i < arr.length; i++) {
+            if (i % 2 != 0) {
+                arr[i] = 0;
+            }
+        }
+
+        System.out.println(printArray(arr));
+    }
+
+    private static void fourthTask() {
+        try {
+            boolean flag = false;
+            do {
+                System.out.print("Enter the size of array from 5 to 10: ");
+                if (scn.hasNextInt()) {
+                    int result = scn.nextInt();
+                    if (result >= 5 && result <= 10) {
+                        int[] arr = new int[result];
+
+                        arr = generateRandomNums(arr);
+
+                        //print
+                        System.out.println(printArray(arr));
+
+                        List<Integer> integers = new ArrayList<>();
+                        for (int i = 0; i < arr.length; i++) {
+                            if (arr[i] % 2 == 0) {
+                                integers.add(arr[i]);
+                            }
+                        }
+
+                        System.out.println(integers);
+                    } else {
+                        flag = true;
+                        System.out.println("The size of array should be between 5 and 10!");
+                    }
+
+                } else {
+                    throw new Exception("Should be integer num!");
+                }
+            } while (flag);
+        } catch (Exception e) {
+            String str = e.getMessage();
+
+            if (str != null) {
+                System.out.println(str);
+            } else {
+                System.out.println("Unrecognized error occurred!");
+            }
+        }
     }
 
     public static void zeroTask() {
